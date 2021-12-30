@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.main),
     path('users/', views.users),
-    path('labels/', include('task_manager.labels')),
-    path('statuses/', include('task_manager.statuses')),
-    path('tasks/', include('task_manager.tasks')),
+    path('labels/', include('task_manager.labels.urls')),
+    path('statuses/', include('task_manager.statuses.urls')),
+    path('tasks/', include('task_manager.tasks.urls')),
 ]
