@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def main():
+    """View for labels main page."""
+    return 'No labels yet'
