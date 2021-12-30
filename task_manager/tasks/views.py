@@ -1,6 +1,7 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 
-def main():
+def main(request):
     """View for tasks main page."""
-    return 'No tasks yet'
+    return HttpResponse('No tasks yet')

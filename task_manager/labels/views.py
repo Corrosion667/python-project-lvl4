@@ -1,6 +1,7 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 
 
-def main():
+def main(request):
     """View for labels main page."""
-    return 'No labels yet'
+    return HttpResponse('No labels yet')
