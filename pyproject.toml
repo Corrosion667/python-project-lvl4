@@ -3,6 +3,9 @@ name = "hexlet-code"
 version = "0.1.0"
 description = "Task manager is a system which allows to set tasks, assign performers and change their statuses. Registration and authentication are required to work with the system."
 authors = ["Artem Nechai <lenikol95@mail.ru>"]
+packages = [
+  { include = "task_manager" },
+]
 
 [tool.poetry.dependencies]
 python = ">=3.8,<3.11"
