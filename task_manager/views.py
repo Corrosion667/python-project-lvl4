@@ -1,11 +1,9 @@
 from django.shortcuts import render
+from django.views.generic import TemplateView
 
-
-def main(request):
+class MainPageView(TemplateView):
     """View for root site page."""
-    return render(request, 'index.html', context={
-        'who': 'World',
-    })
+    template_name = 'main.html'
 
 
 def users(request):

@@ -17,10 +17,11 @@ from django.contrib import admin
 from django.urls import include, path
 
 from task_manager import views
+from task_manager.views import MainPageView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.main),
+    path('', MainPageView.as_view()),
     path('users/', views.users),
     path('labels/', include('task_manager.labels.urls')),
     path('statuses/', include('task_manager.statuses.urls')),
