@@ -15,6 +15,7 @@ lint:
 	poetry run flake8
 
 migrate:
+	$(MANAGE) makemigrations
 	$(MANAGE) migrate
 
 shell:
