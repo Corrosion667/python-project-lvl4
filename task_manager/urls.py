@@ -20,9 +20,9 @@ from task_manager.views import MainPageView, users
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', MainPageView.as_view()),
-    path('users/', users),
-    path('labels/', include('task_manager.labels.urls')),
-    path('statuses/', include('task_manager.statuses.urls')),
-    path('tasks/', include('task_manager.tasks.urls')),
+    path('', MainPageView.as_view(), name='main'),
+    path('users/', users, name='users'),
+    path('labels/', include('task_manager.labels.urls'), name='labels'),
+    path('statuses/', include('task_manager.statuses.urls'), name='statuses'),
+    path('tasks/', include('task_manager.tasks.urls'), name='tasks'),
 ]
