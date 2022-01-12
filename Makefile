@@ -1,3 +1,5 @@
+MANAGE := poetry run python manage.py
+
 install:
 	poetry install
 
@@ -9,8 +11,14 @@ test-coverage:
 
 check: lint test
 
-build: check
-	poetry build
-
 lint:
 	poetry run flake8
+
+migrate:
+	$(MANAGE) migrate
+
+shell:
+	$(MANAGE) shell_plus
+
+run:
+	$(MANAGE) runserver
