@@ -54,7 +54,7 @@ toml = "*"
 [[package]]
 name = "backports.zoneinfo"
 version = "0.2.1"
-description = "Backport of the standard library zoneinfo module"
+description = "Backport of tfe standard library zoneinfo module"
 category = "main"
 optional = false
 python-versions = ">=3.6"
