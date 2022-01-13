@@ -14,6 +14,9 @@ check: lint test
 lint:
 	poetry run flake8
 
+db-clean:
+	@rm db.sqlite3 || true
+
 migrate:
 	$(MANAGE) makemigrations
 	$(MANAGE) migrate
