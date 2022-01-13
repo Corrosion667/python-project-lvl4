@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.views.generic import TemplateView
 
 
-def users(request):
+class UsersListView(TemplateView):
     """View for users page."""
-    return render(request, 'users.html')
+
+    template_name = 'users.html'

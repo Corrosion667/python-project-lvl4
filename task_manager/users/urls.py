@@ -1,7 +1,7 @@
 from django.urls import path
 
-from task_manager.users import views
+from task_manager.users.views import UsersListView
 
 urlpatterns = [
-    path('', views.main, name='users'),
+    path('', UsersListView.as_view(), name='users'),
 ]
