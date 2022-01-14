@@ -1,6 +1,6 @@
 from django.urls import path
 
-from task_manager.users.views import MainPageView, LoginView, UsersListView
+from task_manager.users.views import LoginView, MainPageView, UsersListView
 
 urlpatterns = [
     path('', MainPageView.as_view(), name='main'),
