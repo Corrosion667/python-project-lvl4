@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView, ListView, UpdateView
+from django.views.generic import CreateView, TemplateView, ListView, UpdateView, DeleteView
 
 from task_manager.users.forms import SignupForm
 from task_manager.users.models import User
@@ -37,6 +37,12 @@ class UpdateUserView(UpdateView):
     template_name = 'update_user.html'
     success_url = reverse_lazy('users')
     form_class = SignupForm
+
+
+class DeleteUserView(DeleteView):
+    model = User
+    template_name = 'delete_user.html'
+    success_url = reverse_lazy('users')
 
 
 class UserLoginView(LoginView):
