@@ -1,8 +1,9 @@
-from django.views.generic import TemplateView, CreateView
+from django.contrib.auth.views import LogoutView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, TemplateView
+
 from task_manager.users.forms import SignupForm
-from django.urls import reverse_lazy
 from task_manager.users.models import User
-from django.urls import reverse_lazy
 
 
 class MainPageView(TemplateView):
@@ -13,6 +14,7 @@ class MainPageView(TemplateView):
 
 class SignupView(CreateView):
     """View for signup page."""
+
     model = User
     success_url = reverse_lazy('login')
     template_name = 'signup.html'
@@ -23,6 +25,11 @@ class LoginView(TemplateView):
     """View for users page."""
 
     template_name = 'login.html'
+
+
+class UserLogoutView(LogoutView):
+
+    next_page = reverse_lazy('main')
 
 
 class UsersListView(TemplateView):
