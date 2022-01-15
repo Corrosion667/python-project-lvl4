@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, ListView
 
 from task_manager.users.forms import SignupForm
 from task_manager.users.models import User
@@ -33,7 +33,12 @@ class UserLogoutView(LogoutView):
     next_page = reverse_lazy('main')
 
 
-class UsersListView(TemplateView):
+class UsersListView(ListView):
     """View for users page."""
 
     template_name = 'users.html'
+    context_object_name = 'users_list'
+
+    def get_queryset(self):
+        """Return users list."""
+        return User.objects.all()
