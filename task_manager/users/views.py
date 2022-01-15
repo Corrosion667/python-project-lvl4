@@ -1,6 +1,7 @@
 from django.contrib.auth.views import LogoutView, LoginView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, TemplateView, ListView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from task_manager.users.forms import SignupForm
 from task_manager.users.models import User
@@ -32,17 +33,19 @@ class SignupView(CreateView):
     form_class = SignupForm
 
 
-class UpdateUserView(UpdateView):
+class UpdateUserView(LoginRequiredMixin, UpdateView):
     model = User
     template_name = 'update_user.html'
     success_url = reverse_lazy('users')
     form_class = SignupForm
+    login_url = 'login'
 
 
-class DeleteUserView(DeleteView):
+class DeleteUserView(LoginRequiredMixin, DeleteView):
     model = User
     template_name = 'delete_user.html'
     success_url = reverse_lazy('users')
+    login_url = 'login'
 
 
 class UserLoginView(LoginView):
