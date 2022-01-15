@@ -32,22 +32,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'tasks' %}">{% trans 'Tasks' %}</a>
                 </li>
+                {% endif %}
             </ul>
             <ul class="navbar-nav">
+                {% if user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">{% trans 'Logout' %}</a>
                 </li>
-            </ul>
-            {% else %}
-            <ul class="navbar-nav">
+                {% else %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'login' %}">{% trans 'Login' %}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'signup' %}">{% trans 'Sign up' %}</a>
                 </li>
-            </ul>
-            {% endif %}
+                {% endif %}
             </ul>
         </div>
     </nav>
