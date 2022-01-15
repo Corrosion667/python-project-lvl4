@@ -1,3 +1,5 @@
+"""Admin module of Users app."""
+
 from django.contrib import admin
 
 from task_manager.users.models import User

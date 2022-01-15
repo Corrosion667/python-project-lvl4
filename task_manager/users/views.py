@@ -1,7 +1,15 @@
-from django.contrib.auth.views import LogoutView, LoginView
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView, ListView, UpdateView, DeleteView
+"""Module with views logic of the users app."""
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView, LogoutView
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    ListView,
+    TemplateView,
+    UpdateView,
+)
 
 from task_manager.users.forms import SignupForm
 from task_manager.users.models import User
@@ -20,7 +28,11 @@ class UsersListView(ListView):
     context_object_name = 'users_list'
 
     def get_queryset(self):
-        """Return users list."""
+        """Get list of users.
+
+        Returns:
+            The list of all users.
+        """
         return User.objects.all()
 
 
@@ -34,6 +46,8 @@ class SignupView(CreateView):
 
 
 class UpdateUserView(LoginRequiredMixin, UpdateView):
+    """View for change user data page."""
+
     model = User
     template_name = 'update_user.html'
     success_url = reverse_lazy('users')
@@ -42,6 +56,8 @@ class UpdateUserView(LoginRequiredMixin, UpdateView):
 
 
 class DeleteUserView(LoginRequiredMixin, DeleteView):
+    """View for user deletion page."""
+
     model = User
     template_name = 'delete_user.html'
     success_url = reverse_lazy('users')
@@ -49,12 +65,13 @@ class DeleteUserView(LoginRequiredMixin, DeleteView):
 
 
 class UserLoginView(LoginView):
-    """View for users page."""
+    """View for login page."""
 
     template_name = 'login.html'
     next_page = reverse_lazy('main')
 
 
 class UserLogoutView(LogoutView):
+    """View for logout page."""
 
     next_page = reverse_lazy('main')

@@ -1,10 +1,16 @@
+"""Forms for users app."""
+
 from django.contrib.auth.forms import UserCreationForm
 
 from task_manager.users.models import User
 
 
 class SignupForm(UserCreationForm):
-    class Meta:
+    """Form for signup page."""
+
+    class Meta(object):
+        """Meta information of form."""
+
         model = User
         fields = [
             'first_name',

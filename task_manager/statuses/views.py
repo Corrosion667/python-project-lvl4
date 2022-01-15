@@ -1,22 +1,32 @@
-from django.views.generic import CreateView, ListView, UpdateView, DeleteView
+"""Module with views logic of the statuses app."""
+
 from django.contrib.auth.mixins import LoginRequiredMixin
-from task_manager.statuses.models import Status
-from task_manager.statuses.forms import CreateForm
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+
+from task_manager.statuses.forms import CreateForm
+from task_manager.statuses.models import Status
 
 
 class StatusesListView(LoginRequiredMixin, ListView):
+    """View for statuses page."""
+
     template_name = 'statuses.html'
     context_object_name = 'statuses_list'
     login_url = 'login'
 
     def get_queryset(self):
-        """Return statuses list."""
+        """Get list of statuses.
+
+        Returns:
+            The list of all statuses.
+        """
         return Status.objects.all()
 
 
 class CreateStatusView(LoginRequiredMixin, CreateView):
     """View for create status page."""
+
     model = Status
     success_url = reverse_lazy('statuses')
     template_name = 'create_status.html'
@@ -25,6 +35,8 @@ class CreateStatusView(LoginRequiredMixin, CreateView):
 
 
 class UpdateStatusView(LoginRequiredMixin, UpdateView):
+    """View for change status name page."""
+
     model = Status
     success_url = reverse_lazy('statuses')
     template_name = 'update_status.html'
@@ -33,6 +45,8 @@ class UpdateStatusView(LoginRequiredMixin, UpdateView):
 
 
 class DeleteStatusView(LoginRequiredMixin, DeleteView):
+    """View for status deletion page."""
+
     model = Status
     template_name = 'delete_status.html'
     success_url = reverse_lazy('statuses')
