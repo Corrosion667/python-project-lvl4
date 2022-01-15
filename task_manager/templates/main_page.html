@@ -1,14 +1,7 @@
 {% extends 'basic.html' %}
 
+{% load bootstrap4 %}
 {% load i18n %}
-
-{% block title %}
-
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Менеджер задач: главная</title>
-</head>
-{% endblock %}
 
 {% block content %}
 <div class="container wrapper flex-grow-1">
@@ -16,10 +9,10 @@
   <h1 class="my-4"></h1>
   <div class="card">
     <div class="card-body p-5 bg-light">
-      <div class="display-4">Welcome to Task Manager, {{ user.get_full_name|default:'guest' }}!</div>
-      <p class="lead">Task Manager is a diploma project of <b>hexlet</b> programming school</p>
+      <div class="display-4">{% trans 'Welcome to Task Manager,' %} {{ user.get_full_name|default:'guest' }}!</div>
+      <p class="lead">{% trans 'Task Manager is a diploma project of <b>hexlet</b> programming school' %}</p>
       <hr>
-      <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">Узнать больше</a>
+      <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">{% trans 'Learn more' %}</a>
     </div>
   </div>
 </div>
