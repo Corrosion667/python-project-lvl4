@@ -1,19 +1,15 @@
 {% extends 'basic.html' %}
 
+{% load bootstrap4 %}
 {% load i18n %}
 
-{% block title %}
-
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Вход в Менеджер задач</title>
-</head>
-{% endblock %}
-
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Login">
-</form>
+<div class="container wrapper flex-grow-1">
+    <h1 class="my-4">{% trans 'Login' %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        <button type="submit" class="btn btn-primary">{% trans 'Submit' %}</button>
+    </form>
+</div>
 {% endblock %}
