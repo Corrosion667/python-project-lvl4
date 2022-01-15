@@ -1,14 +1,13 @@
 from django.urls import path
 
 from task_manager.users.views import (
+    DeleteUserView,
     MainPageView,
-    UsersListView,
     SignupView,
     UpdateUserView,
-    DeleteUserView,
     UserLoginView,
     UserLogoutView,
-
+    UsersListView,
 )
 
 urlpatterns = [
