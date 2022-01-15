@@ -35,7 +35,7 @@ class SignupView(CreateView):
 class UpdateUserView(UpdateView):
     model = User
     template_name = 'update_user.html'
-    next_page = reverse_lazy('users')
+    success_url = reverse_lazy('users')
     form_class = SignupForm
 
 
