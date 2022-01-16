@@ -8,6 +8,6 @@
 <p>{% trans 'Are you sure that you want to delete status' %} <b>{{ status }}?</b>?</p>
 <form method="post">
     {% csrf_token %}
-    <button type="button" class="btn btn-danger">{% trans 'Yes, delete' %}</button>
+    <button type="submit" class="btn btn-danger">{% trans 'Yes, delete' %}</button>
 </form>
 {% endblock %}
