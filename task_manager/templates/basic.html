@@ -53,12 +53,8 @@
     <div class="container wrapper flex-grow-1">
         {% if messages %}
         {% for message in messages %}
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="close">×</button>
-            {{ message }}
-        </div>
+        {% bootstrap_messages %}
         {% endfor %}
-        </ul>
         {% endif %}
         {% block content %}
         {% endblock %}
