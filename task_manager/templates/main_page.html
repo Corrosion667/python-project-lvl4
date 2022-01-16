@@ -4,16 +4,14 @@
 {% load i18n %}
 
 {% block content %}
-<div class="container wrapper flex-grow-1">
-  <h1 class="my-4"></h1>
-  <h1 class="my-4"></h1>
-  <div class="card">
-    <div class="card-body p-5 bg-light">
-      <div class="display-4">{% trans 'Welcome to Task Manager,' %} {{ user.get_full_name|default:'guest' }}!</div>
-      <p class="lead">{% trans 'Task Manager is a diploma project of <b>hexlet</b> programming school' %}</p>
-      <hr>
-      <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">{% trans 'Learn more' %}</a>
-    </div>
+<h1 class="my-4"></h1>
+<h1 class="my-4"></h1>
+<div class="card">
+  <div class="card-body p-5 bg-light">
+    <div class="display-4">{% trans 'Welcome to Task Manager,' %} {{ user.get_full_name|default:'guest' }}!</div>
+    <p class="lead">{% trans 'Task Manager is a diploma project of <b>hexlet</b> programming school' %}</p>
+    <hr>
+    <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">{% trans 'Learn more' %}</a>
   </div>
 </div>
 {% endblock %}
