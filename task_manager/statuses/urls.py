@@ -1,4 +1,5 @@
 """URL routing of the statuses app."""
+
 from django.urls import path
 
 from task_manager.statuses.views import (
