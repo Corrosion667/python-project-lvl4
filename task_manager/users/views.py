@@ -1,6 +1,5 @@
 """Module with views logic of the users app."""
 
-
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
