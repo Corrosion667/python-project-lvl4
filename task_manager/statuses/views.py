@@ -4,11 +4,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
+from task_manager.users.views import CustomLoginMixin
 from task_manager.statuses.forms import CreateForm
 from task_manager.statuses.models import Status
 
 
-class StatusesListView(LoginRequiredMixin, ListView):
+class StatusesListView(CustomLoginMixin, ListView):
     """View for statuses page."""
 
     template_name = 'statuses.html'
@@ -24,7 +25,7 @@ class StatusesListView(LoginRequiredMixin, ListView):
         return Status.objects.all()
 
 
-class CreateStatusView(LoginRequiredMixin, CreateView):
+class CreateStatusView(CustomLoginMixin, CreateView):
     """View for create status page."""
 
     model = Status
@@ -34,7 +35,7 @@ class CreateStatusView(LoginRequiredMixin, CreateView):
     login_url = 'login'
 
 
-class UpdateStatusView(LoginRequiredMixin, UpdateView):
+class UpdateStatusView(CustomLoginMixin, UpdateView):
     """View for change status name page."""
 
     model = Status
@@ -44,7 +45,7 @@ class UpdateStatusView(LoginRequiredMixin, UpdateView):
     login_url = 'login'
 
 
-class DeleteStatusView(LoginRequiredMixin, DeleteView):
+class DeleteStatusView(CustomLoginMixin, DeleteView):
     """View for status deletion page."""
 
     model = Status
