@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import ProtectedError
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -106,6 +107,9 @@ class DeleteUserView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
     unable_to_change_others_message = _(
         'You do not have permission to change another user.',
     )
+    deletion_error_message = _(
+        'Cannot delete user because it is in use',
+    )
 
     def get(self, request, *args, **kwargs):
         """GET requests method.
@@ -119,6 +123,20 @@ class DeleteUserView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
             )
             return redirect('users')
         return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        """POST requests method.
+
+        Returns:
+            Execute POST request or redirect if user tries to delete user in use.
+        """
+        try:
+            return super().post(request, *args, **kwargs)
+        except ProtectedError:
+            messages.error(
+                self.request, self.deletion_error_message,
+            )
+            return redirect('users')
 
 
 class UserLoginView(SuccessMessageMixin, LoginView):
