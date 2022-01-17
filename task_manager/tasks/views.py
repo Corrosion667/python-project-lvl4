@@ -1,6 +1,8 @@
 """Module with views logic of the tasks app."""
 
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
@@ -67,6 +69,22 @@ class DeleteTaskView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
     success_url = reverse_lazy('tasks')
     success_message = _('Task successfully deleted')
     login_url = 'login'
+    unable_to_delete_others_tasks = _(
+        'Task can only be deleted by its author',
+    )
+
+    def get(self, request, *args, **kwargs):
+        """GET requests method.
+
+        Returns:
+            Execute GET request or redirect if user tries to delete not his own task.
+        """
+        if request.user != Task.objects.get(pk=self.kwargs['pk']).author:
+            messages.error(
+                self.request, self.unable_to_delete_others_tasks,
+            )
+            return redirect('tasks')
+        return super().get(request, *args, **kwargs)
 
 
 class TaskDetailsView(CustomLoginMixin, DetailView):
