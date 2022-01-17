@@ -21,7 +21,7 @@
         <tr>
             <td>{{ user.pk}}</td>
             <td>{{ user.username}}</td>
-            <td>{{ user.get_full_name }}</td>
+            <td>{{ user }}</td>
             <td>{{ user.date_joined }}</td>
             <td>
                 <a href={% url 'update_user' user.pk %}>{% trans 'Change' %}</a>
