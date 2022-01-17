@@ -95,13 +95,14 @@ class UpdateUserView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
         return super().get(request, *args, **kwargs)
 
 
-class DeleteUserView(CustomLoginMixin, DeleteView):
+class DeleteUserView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
     """View for user deletion page."""
 
     model = User
     template_name = 'delete_user.html'
     success_url = reverse_lazy('users')
     login_url = 'login'
+    success_message = _('User successfully deleted')
     unable_to_change_others_message = _(
         'You do not have permission to change another user.',
     )
