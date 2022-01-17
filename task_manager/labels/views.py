@@ -12,12 +12,21 @@ from task_manager.labels.forms import CreateForm
 from task_manager.labels.models import Label
 from task_manager.users.views import CustomLoginMixin
 
-from django.http import HttpResponse
 
+class LabelsListView(CustomLoginMixin, ListView):
+    """View for labels page."""
 
-def main(request):
-    """View for labels main page."""
-    return HttpResponse('No labels yet')
+    template_name = 'labels.html'
+    context_object_name = 'labels_list'
+    login_url = 'login'
+
+    def get_queryset(self):
+        """Get list of labels.
+
+        Returns:
+            The list of all labels.
+        """
+        return Label.objects.all()
 
 
 class CreateLabelView(SuccessMessageMixin, CustomLoginMixin, CreateView):
