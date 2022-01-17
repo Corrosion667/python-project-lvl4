@@ -20,7 +20,7 @@
         {% for status in statuses_list %}
         <tr>
             <td>{{ status.pk}}</td>
-            <td>{{ status.name}}</td>
+            <td>{{ status }}</td>
             <td>{{ status.created }}</td>
             <td>
                 <a href={% url 'update_status' status.pk %}>{% trans 'Change' %}</a>
