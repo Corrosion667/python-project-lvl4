@@ -29,3 +29,41 @@ class CreateLabelView(SuccessMessageMixin, CustomLoginMixin, CreateView):
     template_name = 'create_label.html'
     form_class = CreateForm
     login_url = 'login'
+
+
+class UpdateLabelView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
+    """View for change label name page."""
+
+    model = Label
+    success_url = reverse_lazy('labels')
+    success_message = _('Label successfully changed')
+    template_name = 'update_label.html'
+    form_class = CreateForm
+    login_url = 'login'
+
+
+class DeleteLabelView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
+    """View for status deletion page."""
+
+    model = Label
+    template_name = 'delete_label.html'
+    success_url = reverse_lazy('labels')
+    success_message = _('Label successfully deleted')
+    login_url = 'login'
+    deletion_error_message = _(
+        'Can not delete label because it is in use',
+    )
+
+    def post(self, request, *args, **kwargs):
+        """POST requests method.
+
+        Returns:
+            Execute POST request or redirect if user tries to delete label in use.
+        """
+        try:
+            return super().post(request, *args, **kwargs)
+        except ProtectedError:
+            messages.error(
+                self.request, self.deletion_error_message,
+            )
+            return redirect('labels')
