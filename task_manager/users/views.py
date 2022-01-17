@@ -20,6 +20,23 @@ from task_manager.users.forms import SignupForm
 from task_manager.users.models import User
 
 
+class CustomLoginMixin(LoginRequiredMixin):
+    """Mixin with added login required message."""
+
+    denied_without_login_message = _('You are not authorized! Please log in.')
+
+    def dispatch(self, request, *args, **kwargs):
+        """Redirect unauthenticated users using error message.
+
+        Returns:
+            Redirect if user is not authenticated.
+        """
+        if not request.user.is_authenticated:
+            messages.error(self.request, self.denied_without_login_message)
+            return redirect('login')
+        return super().dispatch(request, *args, **kwargs)
+
+
 class MainPageView(TemplateView):
     """View for main (home) site page."""
 
@@ -51,7 +68,7 @@ class SignupView(SuccessMessageMixin, CreateView):
     success_message = _('User successfully registered')
 
 
-class UpdateUserView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
+class UpdateUserView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
     """View for change user data page."""
 
     model = User
@@ -60,37 +77,47 @@ class UpdateUserView(SuccessMessageMixin, LoginRequiredMixin, UpdateView):
     form_class = SignupForm
     login_url = 'login'
     success_message = _('User successfully changed')
-    denied_without_login_message = _('You are not authorized! Please log in.')
-    denied_change_another_user_message = _(
-        'You do not have rights to change another user.',
+    unable_to_change_others_message = _(
+        'You do not have permission to change another user.',
     )
 
-    def dispatch(self, request, *args, **kwargs):
-        """Redirect unauthenticated users using error message.
+    def get(self, request, *args, **kwargs):
+        """GET requests method.
 
         Returns:
-            Redirect if user is not authenticated.
+            Execute GET request or redirect if user tries to change other users.
         """
-        if not request.user.is_authenticated:
-            messages.error(self.request, self.denied_without_login_message)
-            return redirect('login')
-
-    def get(self, request, *args, **kwargs):
         if request.user != User.objects.get(pk=self.kwargs['pk']):
             messages.error(
-                self.request, self.denied_change_another_user_message,
+                self.request, self.unable_to_change_others_message,
             )
             return redirect('users')
         return super().get(request, *args, **kwargs)
 
 
-class DeleteUserView(LoginRequiredMixin, DeleteView):
+class DeleteUserView(CustomLoginMixin, DeleteView):
     """View for user deletion page."""
 
     model = User
     template_name = 'delete_user.html'
     success_url = reverse_lazy('users')
     login_url = 'login'
+    unable_to_change_others_message = _(
+        'You do not have permission to change another user.',
+    )
+
+    def get(self, request, *args, **kwargs):
+        """GET requests method.
+
+        Returns:
+            Execute GET request or redirect if user tries to change other users.
+        """
+        if request.user != User.objects.get(pk=self.kwargs['pk']):
+            messages.error(
+                self.request, self.unable_to_change_others_message,
+            )
+            return redirect('users')
+        return super().get(request, *args, **kwargs)
 
 
 class UserLoginView(SuccessMessageMixin, LoginView):
