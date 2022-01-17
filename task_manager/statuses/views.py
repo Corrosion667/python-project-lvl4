@@ -1,12 +1,11 @@
 """Module with views logic of the statuses app."""
 
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
-from task_manager.users.views import CustomLoginMixin
 from task_manager.statuses.forms import CreateForm
 from task_manager.statuses.models import Status
+from task_manager.users.views import CustomLoginMixin
 
 
 class StatusesListView(CustomLoginMixin, ListView):
