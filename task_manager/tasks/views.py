@@ -3,7 +3,13 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from task_manager.tasks.forms import CreateForm
 from task_manager.tasks.models import Task
@@ -61,3 +67,8 @@ class DeleteTaskView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
     success_url = reverse_lazy('tasks')
     success_message = _('Task successfully deleted')
     login_url = 'login'
+
+
+class TaskDetailsView(CustomLoginMixin, DetailView):
+    model = Task
+    template_name = 'task_details.html'
