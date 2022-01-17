@@ -1,6 +1,9 @@
 """Module with views logic of the statuses app."""
 
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import ProtectedError
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
@@ -56,3 +59,20 @@ class DeleteStatusView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
     success_url = reverse_lazy('statuses')
     success_message = _('Status successfully deleted')
     login_url = 'login'
+    deletion_error_message = _(
+        'Can not delete status because it is in use',
+    )
+
+    def post(self, request, *args, **kwargs):
+        """POST requests method.
+
+        Returns:
+            Execute POST request or redirect if user tries to delete status in use.
+        """
+        try:
+            return super().post(request, *args, **kwargs)
+        except ProtectedError:
+            messages.error(
+                self.request, self.deletion_error_message,
+            )
+            return redirect('statuses')
