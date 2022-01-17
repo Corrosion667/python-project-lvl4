@@ -24,7 +24,7 @@
         <tr>
             <td>{{ task.pk }}</td>
             <td>
-                {{ task.name }}
+                <a href={% url 'task_details' task.pk %}>{{ task.name }}</a>
             </td>
             <td>{{ task.status }}</td>
             <td>{{ task.author }}</td>
