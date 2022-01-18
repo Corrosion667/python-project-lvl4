@@ -12,7 +12,7 @@ test-coverage:
 check: lint test
 
 lint:
-	poetry run flake8
+	poetry run flake8 task_manager
 
 db-clean:
 	@rm db.sqlite3 || true
