@@ -17,6 +17,7 @@ class CreateForm(ModelForm):
             'description',
             'status',
             'executor',
+            'labels',
         ]
 
     def __init__(self, *args, **kwargs):
