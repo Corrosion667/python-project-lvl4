@@ -5,6 +5,7 @@ from django.utils.translation import gettext as _
 
 from task_manager.statuses.models import Status
 from task_manager.users.models import User
+from task_manager.labels.models import Label
 
 MAX_LENGTH_OF_TASK_NAME = 80
 MAX_LENGTH_OF_TASK_DESCRIPTION = 500
@@ -37,6 +38,7 @@ class Task(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name=_('Author'),
+        related_name=_('tasks'),
     )
     executor = models.ForeignKey(
         User,
@@ -44,7 +46,13 @@ class Task(models.Model):
         on_delete=models.PROTECT,
         blank=True,
         null=True,
-        related_name=_('Executor'),
+        # related_name=_('tasks'),
+    )
+    labels = models.ManyToManyField(
+        Label,
+        verbose_name=_('Labels'),
+        blank=True,
+        related_name=_('tasks'),
     )
 
     class Meta(object):
