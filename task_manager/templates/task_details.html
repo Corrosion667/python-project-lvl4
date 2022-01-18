@@ -27,7 +27,7 @@
             </div>
             <div class="row p-1">
                 <div class="col">{% trans 'Creation date' %}</div>
-                <div class="col">{{ task.created }}</div>
+                <div class="col">{{ task.created|date:"d.m.Y, H:i" }}</div>
             </div>
             <div class="row p-1">
                 <div class="col">
