@@ -22,7 +22,7 @@ migrate:
 	$(MANAGE) migrate
 
 shell:
-	$(MANAGE) shell
+	$(MANAGE) shell_plus 
 
 run:
 	$(MANAGE) runserver
