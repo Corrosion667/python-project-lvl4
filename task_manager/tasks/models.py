@@ -3,9 +3,9 @@
 from django.db import models
 from django.utils.translation import gettext as _
 
+from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 from task_manager.users.models import User
-from task_manager.labels.models import Label
 
 MAX_LENGTH_OF_TASK_NAME = 80
 MAX_LENGTH_OF_TASK_DESCRIPTION = 500
@@ -53,6 +53,8 @@ class Task(models.Model):
         verbose_name=_('Labels'),
         blank=True,
         related_name=_('tasks'),
+        through='TaskLabelRelation',
+        through_fields=('task', 'label'),
     )
 
     class Meta(object):
@@ -68,3 +70,14 @@ class Task(models.Model):
             Name of task.
         """
         return self.name
+
+
+class TaskLabelRelation(models.Model):
+    task = models.ForeignKey(
+        Task,
+        on_delete=models.PROTECT,
+    )
+    label = models.ForeignKey(
+        Label,
+        on_delete=models.PROTECT,
+    )
