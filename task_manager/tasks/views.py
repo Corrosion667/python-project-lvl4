@@ -12,26 +12,22 @@ from django.views.generic import (
     ListView,
     UpdateView,
 )
+from django_filters.views import FilterView
 
+from task_manager.tasks.filters import TaskFilter
 from task_manager.tasks.forms import CreateForm
 from task_manager.tasks.models import Task
 from task_manager.users.views import CustomLoginMixin
 
 
-class TasksListView(CustomLoginMixin, ListView):
+class TasksListView(CustomLoginMixin, FilterView):
     """View for tasks page."""
 
     template_name = 'tasks.html'
     context_object_name = 'tasks_list'
     login_url = 'login'
-
-    def get_queryset(self):
-        """Get list of tasks.
-
-        Returns:
-            The list of all tasks.
-        """
-        return Task.objects.all()
+    model = Task
+    filter_class = TaskFilter
 
 
 class CreateTaskView(SuccessMessageMixin, CustomLoginMixin, CreateView):
