@@ -4,7 +4,6 @@ import os
 from pathlib import Path
 
 import django_heroku
-from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +41,7 @@ INSTALLED_APPS = [
     'task_manager.users',
     'bootstrap4',
     'django_extensions',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -109,11 +109,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = 'en-us'
 
 LANGUAGES = (
-    ('en-us', _('English')),
-    ('ru', _('Russian')),
+    ('en-us', ('English')),
+    ('ru', ('Russian')),
 )
 
 TIME_ZONE = 'UTC'
