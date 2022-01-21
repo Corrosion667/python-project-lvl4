@@ -26,3 +26,9 @@ shell:
 
 run:
 	$(MANAGE) runserver
+
+messages:
+	$(MANAGE) makemessages -l ru
+
+compile:
+	$(MANAGE) compilemessages --ignore=cache --ignore=.venv/*/locale
