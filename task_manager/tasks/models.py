@@ -38,7 +38,7 @@ class Task(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name=_('Author'),
-        related_name=_('tasks'),
+        related_name=('tasks'),
     )
     executor = models.ForeignKey(
         User,
@@ -52,7 +52,7 @@ class Task(models.Model):
         Label,
         verbose_name=_('Labels'),
         blank=True,
-        related_name=_('tasks'),
+        related_name=('tasks'),
         through='TaskLabelRelation',
         through_fields=('task', 'label'),
     )
