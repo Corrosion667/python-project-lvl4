@@ -11,3 +11,4 @@ htmlcov/
 *.bak
 *.mo
 .coverage
+.DS_Store
