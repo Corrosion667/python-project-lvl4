@@ -27,7 +27,6 @@ class Task(models.Model):
         verbose_name=_('Description'),
         max_length=MAX_LENGTH_OF_TASK_DESCRIPTION,
         blank=True,
-        null=True,
     )
     status = models.ForeignKey(
         Status,
@@ -56,12 +55,6 @@ class Task(models.Model):
         through='TaskLabelRelation',
         through_fields=('task', 'label'),
     )
-
-    class Meta(object):
-        """Meta information of model."""
-
-        verbose_name = _('task')
-        verbose_name_plural = _('tasks')
 
     def __str__(self):
         """Present object as a string.

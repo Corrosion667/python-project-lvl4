@@ -18,12 +18,6 @@ class Status(models.Model):
         auto_now_add=True, verbose_name=_('Creation date'),
     )
 
-    class Meta(object):
-        """Meta information of model."""
-
-        verbose_name = _('status')
-        verbose_name_plural = _('statuses')
-
     def __str__(self):
         """Present object as a string.
 

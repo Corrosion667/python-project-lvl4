@@ -18,12 +18,6 @@ class Label(models.Model):
         auto_now_add=True, verbose_name=_('Creation date'),
     )
 
-    class Meta(object):
-        """Meta information of model."""
-
-        verbose_name = _('label')
-        verbose_name_plural = _('labels')
-
     def __str__(self):
         """Present object as a string.
 
