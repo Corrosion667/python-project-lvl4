@@ -103,3 +103,10 @@ class UserLogoutView(LogoutView):
     """View for logout page."""
 
     next_page = reverse_lazy('main')
+    logout_message = _('You are logged out')
+
+    def dispatch(self, request, *args, **kwargs):
+        messages.info(
+            self.request, self.logout_message,
+        )
+        return super().dispatch(request, *args, **kwargs)
