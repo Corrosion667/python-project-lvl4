@@ -57,10 +57,17 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'task_manager.urls'
 
+TEMPLATE_DIR = os.path.join('task_manager', 'templates')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(TEMPLATE_DIR, 'users'),
+            os.path.join(TEMPLATE_DIR, 'statuses'),
+            os.path.join(TEMPLATE_DIR, 'labels'),
+            os.path.join(TEMPLATE_DIR, 'tasks'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,6 +129,7 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOCALE_PATHS = (os.path.join(BASE_DIR, 'locale'),)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
