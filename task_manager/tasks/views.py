@@ -17,7 +17,7 @@ from django_filters.views import FilterView
 from task_manager.tasks.filters import TaskFilter
 from task_manager.tasks.forms import CreateForm
 from task_manager.tasks.models import Task
-from task_manager.users.views import CustomLoginMixin
+from task_manager.custom_views import CustomLoginMixin
 
 
 class TasksListView(CustomLoginMixin, FilterView):
@@ -25,7 +25,6 @@ class TasksListView(CustomLoginMixin, FilterView):
 
     template_name = 'tasks.html'
     context_object_name = 'tasks_list'
-    login_url = 'login'
     model = Task
     filter_class = TaskFilter
 
@@ -38,7 +37,6 @@ class CreateTaskView(SuccessMessageMixin, CustomLoginMixin, CreateView):
     template_name = 'create_task.html'
     success_message = _('Task successfully created')
     form_class = CreateForm
-    login_url = 'login'
 
     def form_valid(self, form):
         """Set author of task as active user."""  # noqa: DAR201
@@ -54,7 +52,6 @@ class UpdateTaskView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
     success_message = _('Task successfully changed')
     template_name = 'update_task.html'
     form_class = CreateForm
-    login_url = 'login'
 
 
 class DeleteTaskView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
@@ -64,7 +61,6 @@ class DeleteTaskView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
     template_name = 'delete_task.html'
     success_url = reverse_lazy('tasks')
     success_message = _('Task successfully deleted')
-    login_url = 'login'
     unable_to_delete_others_tasks = _(
         'Task can only be deleted by its author',
     )

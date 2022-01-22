@@ -1,40 +1,16 @@
 """Module with views logic of the users app."""
 
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import ProtectedError
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import (
-    CreateView,
-    DeleteView,
-    ListView,
-    TemplateView,
-    UpdateView,
-)
+from django.views.generic import CreateView, ListView, TemplateView, UpdateView
 
+from task_manager.custom_views import CustomDeleteView, CustomLoginMixin
 from task_manager.users.forms import SignupForm
 from task_manager.users.models import User
-
-
-class CustomLoginMixin(LoginRequiredMixin):
-    """Mixin with added login required message."""
-
-    denied_without_login_message = _('You are not authorized! Please log in.')
-
-    def dispatch(self, request, *args, **kwargs):
-        """Redirect unauthenticated users using error message.
-
-        Returns:
-            Redirect if user is not authenticated.
-        """
-        if not request.user.is_authenticated:
-            messages.error(self.request, self.denied_without_login_message)
-            return redirect('login')
-        return super().dispatch(request, *args, **kwargs)
 
 
 class MainPageView(TemplateView):
@@ -48,14 +24,7 @@ class UsersListView(ListView):
 
     template_name = 'users.html'
     context_object_name = 'users_list'
-
-    def get_queryset(self):
-        """Get list of users.
-
-        Returns:
-            The list of all users.
-        """
-        return User.objects.all()
+    model = User
 
 
 class SignupView(SuccessMessageMixin, CreateView):
@@ -75,7 +44,6 @@ class UpdateUserView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
     template_name = 'update_user.html'
     success_url = reverse_lazy('users')
     form_class = SignupForm
-    login_url = 'login'
     success_message = _('User successfully changed')
     unable_to_change_others_message = _(
         'You do not have permission to change another user.',
@@ -95,13 +63,12 @@ class UpdateUserView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
         return super().get(request, *args, **kwargs)
 
 
-class DeleteUserView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
+class DeleteUserView(CustomDeleteView):
     """View for user deletion page."""
 
     model = User
     template_name = 'delete_user.html'
     success_url = reverse_lazy('users')
-    login_url = 'login'
     success_message = _('User successfully deleted')
     unable_to_change_others_message = _(
         'You do not have permission to change another user.',
@@ -122,20 +89,6 @@ class DeleteUserView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
             )
             return redirect('users')
         return super().get(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        """POST requests method.
-
-        Returns:
-            Execute POST request or redirect if user tries to delete user in use.
-        """
-        try:
-            return super().post(request, *args, **kwargs)
-        except ProtectedError:
-            messages.error(
-                self.request, self.deletion_error_message,
-            )
-            return redirect('users')
 
 
 class UserLoginView(SuccessMessageMixin, LoginView):

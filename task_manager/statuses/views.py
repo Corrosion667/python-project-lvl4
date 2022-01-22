@@ -1,32 +1,25 @@
 """Module with views logic of the statuses app."""
 
-from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import ProtectedError
-from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.views.generic import CreateView, UpdateView
 
+from task_manager.custom_views import (
+    CustomDeleteView,
+    CustomListView,
+    CustomLoginMixin,
+)
 from task_manager.statuses.forms import CreateForm
 from task_manager.statuses.models import Status
-from task_manager.users.views import CustomLoginMixin
 
 
-class StatusesListView(CustomLoginMixin, ListView):
+class StatusesListView(CustomListView):
     """View for statuses page."""
 
     template_name = 'statuses.html'
     context_object_name = 'statuses_list'
-    login_url = 'login'
-
-    def get_queryset(self):
-        """Get list of statuses.
-
-        Returns:
-            The list of all statuses.
-        """
-        return Status.objects.all()
+    model = Status
 
 
 class CreateStatusView(SuccessMessageMixin, CustomLoginMixin, CreateView):
@@ -37,7 +30,6 @@ class CreateStatusView(SuccessMessageMixin, CustomLoginMixin, CreateView):
     success_message = _('Status successfully created')
     template_name = 'create_status.html'
     form_class = CreateForm
-    login_url = 'login'
 
 
 class UpdateStatusView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
@@ -48,31 +40,15 @@ class UpdateStatusView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
     success_message = _('Status successfully changed')
     template_name = 'update_status.html'
     form_class = CreateForm
-    login_url = 'login'
 
 
-class DeleteStatusView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
+class DeleteStatusView(CustomDeleteView):
     """View for status deletion page."""
 
     model = Status
     template_name = 'delete_status.html'
     success_url = reverse_lazy('statuses')
     success_message = _('Status successfully deleted')
-    login_url = 'login'
     deletion_error_message = _(
         'Can not delete status because it is in use',
     )
-
-    def post(self, request, *args, **kwargs):
-        """POST requests method.
-
-        Returns:
-            Execute POST request or redirect if user tries to delete status in use.
-        """
-        try:
-            return super().post(request, *args, **kwargs)
-        except ProtectedError:
-            messages.error(
-                self.request, self.deletion_error_message,
-            )
-            return redirect('statuses')
