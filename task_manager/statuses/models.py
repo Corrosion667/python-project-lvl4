@@ -10,7 +10,7 @@ class Status(models.Model):
     """Status of the task."""
 
     name = models.CharField(
-        verbose_name=_('Name'),
+        verbose_name=_('AAAA'),
         max_length=MAX_LENGTH_OF_STATUS_NAME,
         unique=True,
     )

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-23 17:15+0000\n"
+"POT-Creation-Date: 2022-01-23 17:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "You are not authorized! Please log in."
 msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
 
-#: task_manager/labels/models.py:13 task_manager/statuses/models.py:13
+#: task_manager/labels/models.py:13 task_manager/tasks/forms.py:24
 #: task_manager/tasks/models.py:18 task_manager/templates/labels/labels.html:14
 #: task_manager/templates/statuses/statuses.html:14
 #: task_manager/templates/tasks/tasks.html:27
@@ -55,6 +55,10 @@ msgstr "Метка успешно удалена"
 msgid "Can not delete label because it is in use"
 msgstr "Невозможно удалить метку, потому что она используется"
 
+#: task_manager/statuses/models.py:13
+msgid "AAAA"
+msgstr "EEEEEE"
+
 #: task_manager/statuses/views.py:30
 msgid "Status successfully created"
 msgstr "Статус успешно создан"
@@ -71,31 +75,33 @@ msgstr "Статус успешно удалён"
 msgid "Can not delete status because it is in use"
 msgstr "Невозможно удалить статус, потому что он используется"
 
-#: task_manager/tasks/models.py:27
+#: task_manager/tasks/forms.py:25 task_manager/tasks/models.py:27
 msgid "Description"
 msgstr "Описание"
 
-#: task_manager/tasks/models.py:34 task_manager/templates/tasks/tasks.html:28
+#: task_manager/tasks/forms.py:26 task_manager/tasks/models.py:34
+#: task_manager/templates/tasks/tasks.html:28
 msgid "Status"
 msgstr "Статус"
+
+#: task_manager/tasks/forms.py:27 task_manager/tasks/models.py:44
+#: task_manager/templates/tasks/task_details.html:21
+#: task_manager/templates/tasks/tasks.html:30
+msgid "Executor"
+msgstr "Исполнитель"
+
+#: task_manager/tasks/forms.py:28 task_manager/tasks/models.py:52
+#: task_manager/templates/basic.html:30
+#: task_manager/templates/labels/labels.html:7
+#: task_manager/templates/tasks/task_details.html:34
+msgid "Labels"
+msgstr "Метки"
 
 #: task_manager/tasks/models.py:39
 #: task_manager/templates/tasks/task_details.html:17
 #: task_manager/templates/tasks/tasks.html:29
 msgid "Author"
 msgstr "Автор"
-
-#: task_manager/tasks/models.py:44
-#: task_manager/templates/tasks/task_details.html:21
-#: task_manager/templates/tasks/tasks.html:30
-msgid "Executor"
-msgstr "Исполнитель"
-
-#: task_manager/tasks/models.py:52 task_manager/templates/basic.html:30
-#: task_manager/templates/labels/labels.html:7
-#: task_manager/templates/tasks/task_details.html:34
-msgid "Labels"
-msgstr "Метки"
 
 #: task_manager/tasks/views.py:32
 msgid "Task successfully created"
