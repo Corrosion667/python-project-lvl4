@@ -5,9 +5,12 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, UpdateView
 
-from task_manager.labels.forms import CreateForm
+from task_manager.custom_views import (
+    CustomDeleteView,
+    CustomListView,
+    CustomLoginMixin,
+)
 from task_manager.labels.models import Label
-from task_manager.custom_views import CustomListView, CustomLoginMixin, CustomDeleteView
 
 
 class LabelsListView(CustomListView):
@@ -25,7 +28,7 @@ class CreateLabelView(SuccessMessageMixin, CustomLoginMixin, CreateView):
     success_url = reverse_lazy('labels')
     success_message = _('Label successfully created')
     template_name = 'create_label.html'
-    form_class = CreateForm
+    fields = ['name']
 
 
 class UpdateLabelView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
@@ -35,7 +38,7 @@ class UpdateLabelView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
     success_url = reverse_lazy('labels')
     success_message = _('Label successfully changed')
     template_name = 'update_label.html'
-    form_class = CreateForm
+    fields = ['name']
 
 
 class DeleteLabelView(CustomDeleteView):

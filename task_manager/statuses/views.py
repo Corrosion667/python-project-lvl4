@@ -10,7 +10,6 @@ from task_manager.custom_views import (
     CustomListView,
     CustomLoginMixin,
 )
-from task_manager.statuses.forms import CreateForm
 from task_manager.statuses.models import Status
 
 
@@ -29,7 +28,7 @@ class CreateStatusView(SuccessMessageMixin, CustomLoginMixin, CreateView):
     success_url = reverse_lazy('statuses')
     success_message = _('Status successfully created')
     template_name = 'create_status.html'
-    form_class = CreateForm
+    fields = ['name']
 
 
 class UpdateStatusView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
@@ -39,7 +38,7 @@ class UpdateStatusView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
     success_url = reverse_lazy('statuses')
     success_message = _('Status successfully changed')
     template_name = 'update_status.html'
-    form_class = CreateForm
+    fields = ['name']
 
 
 class DeleteStatusView(CustomDeleteView):
