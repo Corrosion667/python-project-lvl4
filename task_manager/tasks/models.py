@@ -37,7 +37,7 @@ class Task(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name=_('Author'),
-        related_name=('tasks'),
+        related_name=('tasks_author'),
     )
     executor = models.ForeignKey(
         User,
@@ -45,7 +45,7 @@ class Task(models.Model):
         on_delete=models.PROTECT,
         blank=True,
         null=True,
-        # related_name=_('tasks'),
+        related_name=('tasks_executor'),
     )
     labels = models.ManyToManyField(
         Label,
@@ -66,9 +66,11 @@ class Task(models.Model):
 
 
 class TaskLabelRelation(models.Model):
+    """Table for detailed relations between tasks and labels."""
+
     task = models.ForeignKey(
         Task,
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
     )
     label = models.ForeignKey(
         Label,
