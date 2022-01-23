@@ -9,6 +9,5 @@ htmlcov/
 .python-version
 *.sqlite3
 *.bak
-*.mo
 .coverage
 .DS_Store
