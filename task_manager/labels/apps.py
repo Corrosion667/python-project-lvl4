@@ -1,3 +1,5 @@
+"""Labels app config file."""
+
 from django.apps import AppConfig
 
 
