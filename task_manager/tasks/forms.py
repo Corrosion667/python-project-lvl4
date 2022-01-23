@@ -3,6 +3,7 @@
 from django.forms import ModelForm
 
 from task_manager.tasks.models import Task
+from django.utils.translation import gettext as _
 
 
 class CreateForm(ModelForm):
@@ -19,6 +20,13 @@ class CreateForm(ModelForm):
             'executor',
             'labels',
         ]
+        labels = {
+            'name': _('Name'),
+            'description': _('Description'),
+            'status': _('Status'),
+            'executor': _('Executor'),
+            'labels': _('Labels'),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
