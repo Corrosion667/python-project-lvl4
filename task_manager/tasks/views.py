@@ -10,7 +10,6 @@ from django_filters.views import FilterView
 
 from task_manager.custom_views import CustomLoginMixin
 from task_manager.tasks.filters import TaskFilter
-from task_manager.tasks.forms import CreateForm
 from task_manager.tasks.models import Task
 
 
@@ -30,7 +29,13 @@ class CreateTaskView(SuccessMessageMixin, CustomLoginMixin, CreateView):
     success_url = reverse_lazy('tasks')
     template_name = 'create_task.html'
     success_message = _('Task successfully created')
-    form_class = CreateForm
+    fields = [
+        'name',
+        'description',
+        'status',
+        'executor',
+        'labels',
+    ]
 
     def form_valid(self, form):
         """Set author of task as active user."""  # noqa: DAR201
@@ -45,7 +50,13 @@ class UpdateTaskView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
     success_url = reverse_lazy('tasks')
     success_message = _('Task successfully changed')
     template_name = 'update_task.html'
-    form_class = CreateForm
+    fields = [
+        'name',
+        'description',
+        'status',
+        'executor',
+        'labels',
+    ]
 
 
 class DeleteTaskView(SuccessMessageMixin, CustomLoginMixin, DeleteView):

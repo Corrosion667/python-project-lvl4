@@ -18,6 +18,7 @@ class Task(models.Model):
         verbose_name=_('Name'),
         max_length=MAX_LENGTH_OF_TASK_NAME,
         unique=True,
+        blank=False,
     )
     created = models.DateTimeField(
         auto_now_add=True,
@@ -32,6 +33,7 @@ class Task(models.Model):
         Status,
         on_delete=models.PROTECT,
         verbose_name=_('Status'),
+        blank=False,
     )
     author = models.ForeignKey(
         User,
