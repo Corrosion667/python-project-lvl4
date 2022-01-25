@@ -106,6 +106,7 @@ class UserLogoutView(LogoutView):
     logout_message = _('You are logged out')
 
     def dispatch(self, request, *args, **kwargs):
+        """Dispatch method but with message for user."""
         messages.info(
             self.request, self.logout_message,
         )
