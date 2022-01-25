@@ -2,8 +2,9 @@
 
 from django.forms import CheckboxInput
 from django.utils.translation import gettext_lazy as _
-from django_filters import BooleanFilter, FilterSet
+from django_filters import BooleanFilter, FilterSet, ModelChoiceFilter
 
+from task_manager.labels.models import Label
 from task_manager.tasks.models import Task
 
 
@@ -15,6 +16,11 @@ class TaskFilter(FilterSet):
         label=_('Show_own_tasks'),
         method='filter_own_tasks',
         widget=CheckboxInput,
+    )
+
+    labels = ModelChoiceFilter(
+        queryset=Label.objects.all(),
+        label=_('Label'),
     )
 
     def filter_own_tasks(self, queryset, name, value):
