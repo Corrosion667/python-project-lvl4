@@ -15,11 +15,7 @@ SECRET_KEY = os.getenv('DJANGO_KEY')
 
 DEBUG = os.getenv('DEBUG', default=False)
 
-ALLOWED_HOSTS = [
-    '.herokuapp.com',
-    '127.0.0.1',
-    '192.168.0.184',
-]
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
