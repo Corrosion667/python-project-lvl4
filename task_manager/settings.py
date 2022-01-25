@@ -2,7 +2,7 @@
 
 import os
 from pathlib import Path
-
+import dj_database_url
 import django_heroku
 import rollbar
 from dotenv import load_dotenv
@@ -132,4 +132,5 @@ ROLLBAR = {
 
 rollbar.init(**ROLLBAR)
 
-django_heroku.settings(locals())
+db_from_env = dj_database_url.config(conn_max_age=0, ssl_require=False)
+django_heroku.settings(locals() ,databases=False)
