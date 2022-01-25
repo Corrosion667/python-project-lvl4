@@ -16,13 +16,13 @@ django-bootstrap4 = "^21.2"
 django-heroku = "^0.3.1"
 django-filter = "^21.1"
 rollbar = "^0.16.2"
+django-extensions = "^3.1.5"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
 pytest-cov = "^3.0.0"
 isort = "^5.10.1"
 autopep8 = "^1.5.7"
-django-extensions = "^3.1.5"
 wemake-python-styleguide = "^0.16.0"
 ipython = "^8.0.0"
 
