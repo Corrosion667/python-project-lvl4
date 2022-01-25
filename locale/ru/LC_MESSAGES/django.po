@@ -290,7 +290,7 @@ msgstr "Узнать больше"
 
 #: task_manager/templates/users/signup.html:11
 msgid "Register"
-msgstr "Регистрация"
+msgstr "Зарегистрировать"
 
 #: task_manager/templates/users/update_user.html:7
 msgid "Change user"
