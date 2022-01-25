@@ -18,8 +18,7 @@ class TasksListView(CustomLoginMixin, FilterView):
 
     template_name = 'tasks.html'
     context_object_name = 'tasks_list'
-    model = Task
-    filter_class = TaskFilter
+    filterset_class = TaskFilter
 
 
 class CreateTaskView(SuccessMessageMixin, CustomLoginMixin, CreateView):
@@ -38,7 +37,7 @@ class CreateTaskView(SuccessMessageMixin, CustomLoginMixin, CreateView):
     ]
 
     def form_valid(self, form):
-        """Set author of task as active user."""  # noqa: DAR201
+        """Set author of task as active user."""
         form.instance.author = self.request.user
         return super().form_valid(form)
 
