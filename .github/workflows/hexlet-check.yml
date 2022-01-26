@@ -18,12 +18,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      LOCALE: ru
     steps:
       - uses: actions/checkout@v2
 
       - name: Hexlet project check
         uses: hexlet/project-action@release
-        env:
-          LOCALE: ru
         with:
           hexlet-id: ${{ secrets.HEXLET_ID }}
