@@ -98,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'ru'
+LANGUAGE_CODE = os.getenv('LOCALE', default='en-us')
 
 LANGUAGES = (
     ('en-us', ('English')),
