@@ -75,7 +75,7 @@ class DeleteTaskView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
         Returns:
             Execute GET request or redirect if user tries to delete not his own task.
         """
-        if request.user != Task.objects.get(pk=self.kwargs['pk']).author:
+        if request.user != self.get_object().author:
             messages.error(
                 self.request, self.unable_to_delete_others_tasks,
             )
