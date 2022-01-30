@@ -3,17 +3,16 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, ListView
 
 from task_manager.custom_views import (
     CustomDeleteView,
-    CustomListView,
     CustomLoginMixin,
 )
 from task_manager.statuses.models import Status
 
 
-class StatusesListView(CustomListView):
+class StatusesListView(CustomLoginMixin, ListView):
     """View for statuses page."""
 
     template_name = 'statuses.html'

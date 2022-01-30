@@ -26,20 +26,6 @@ class CustomLoginMixin(LoginRequiredMixin):
         return super().dispatch(request, *args, **kwargs)
 
 
-class CustomListView(CustomLoginMixin, ListView):
-    """Custom view for pages with list of objects."""
-
-    model = None
-
-    def get_queryset(self):
-        """Get list of objects depending on the model.
-
-        Returns:
-            The list of all objects.
-        """
-        return self.model.objects.all()
-
-
 class CustomDeleteView(SuccessMessageMixin, CustomLoginMixin, DeleteView):
     """Custom view for deletion pages."""
 
