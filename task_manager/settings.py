@@ -16,9 +16,11 @@ SECRET_KEY = os.getenv('DJANGO_KEY')
 
 DEBUG = os.getenv('DEBUG', default=False)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
-CSRF_TRUSTED_ORIGINS = ['http://webserver:9000']
+CSRF_TRUSTED_ORIGINS = os.getenv(
+    'CSRF_TRUSTED_ORIGINS', default='http://*',
+).split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -98,7 +100,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = os.getenv('LOCALE', default='en-us')
+LANGUAGE_CODE = os.getenv('LOCALE', default='ru')
 
 LANGUAGES = (
     ('en-us', ('English')),
