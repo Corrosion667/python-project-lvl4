@@ -19,7 +19,7 @@ DEBUG = os.getenv('DEBUG', default=False)
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
 CSRF_TRUSTED_ORIGINS = os.getenv(
-    'CSRF_TRUSTED_ORIGINS', default='http://*',
+    'CSRF_TRUSTED_ORIGINS', default='http://webserver:9000',
 ).split(',')
 
 INSTALLED_APPS = [
