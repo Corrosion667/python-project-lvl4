@@ -6,7 +6,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import ProtectedError
 from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import DeleteView, ListView
+from django.views.generic import DeleteView
 
 
 class CustomLoginMixin(LoginRequiredMixin):

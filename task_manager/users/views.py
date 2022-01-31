@@ -55,7 +55,7 @@ class UpdateUserView(SuccessMessageMixin, CustomLoginMixin, UpdateView):
         Returns:
             Execute GET request or redirect if user tries to change other users.
         """
-        if request.user != User.objects.get(pk=self.kwargs['pk']):
+        if request.user != self.get_object():
             messages.error(
                 self.request, self.unable_to_change_others_message,
             )
@@ -83,7 +83,7 @@ class DeleteUserView(CustomDeleteView):
         Returns:
             Execute GET request or redirect if user tries to change other users.
         """
-        if request.user != User.objects.get(pk=self.kwargs['pk']):
+        if request.user != self.get_object():
             messages.error(
                 self.request, self.unable_to_change_others_message,
             )

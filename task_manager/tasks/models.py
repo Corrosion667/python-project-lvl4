@@ -39,7 +39,7 @@ class Task(models.Model):
         User,
         on_delete=models.CASCADE,
         verbose_name=_('Author'),
-        related_name=('tasks_author'),
+        related_name='tasks_author',
     )
     executor = models.ForeignKey(
         User,
@@ -47,13 +47,13 @@ class Task(models.Model):
         on_delete=models.PROTECT,
         blank=True,
         null=True,
-        related_name=('tasks_executor'),
+        related_name='tasks_executor',
     )
     labels = models.ManyToManyField(
         Label,
         verbose_name=_('Labels'),
         blank=True,
-        related_name=('tasks'),
+        related_name='tasks',
         through='TaskLabelRelation',
         through_fields=('task', 'label'),
     )

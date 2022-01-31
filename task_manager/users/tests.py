@@ -1,9 +1,9 @@
 """Module for testing users app."""
 
+from django.contrib.auth import get_user
 from django.contrib.messages import get_messages
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth import get_user
 
 from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task

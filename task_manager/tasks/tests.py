@@ -65,12 +65,13 @@ class TaskTestCase(TestCase):
             str(messages[0]),
             'Task successfully created',
         )
+        created_task = Task.objects.get(pk=2)
         self.assertEqual(response.status_code, REDIRECT_CODE)
-        self.assertEqual('test_task2', Task.objects.get(pk=2).name)
-        self.assertEqual('test', Task.objects.get(pk=2).description)
-        self.assertEqual('test', Task.objects.get(pk=2).status.name)
-        self.assertEqual('test_user', Task.objects.get(pk=2).author.username)
-        self.assertEqual('test', Task.objects.get(pk=2).labels.all()[0].name)
+        self.assertEqual('test_task2', created_task.name)
+        self.assertEqual('test', created_task.description)
+        self.assertEqual('test', created_task.status.name)
+        self.assertEqual('test_user', created_task.author.username)
+        self.assertEqual('test', created_task.labels.all()[0].name)
 
     def test_update_task(self):
         """Test for checking how task can be updated."""
