@@ -133,5 +133,8 @@ ROLLBAR = {
 
 rollbar.init(**ROLLBAR)
 
-db_from_env = dj_database_url.config(conn_max_age=0, ssl_require=False)
 django_heroku.settings(locals())
+locals()['DATABASES']['default'] = dj_database_url.config(
+    conn_max_age=django_heroku.MAX_CONN_AGE,
+    ssl_require=False,
+)
