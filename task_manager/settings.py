@@ -3,7 +3,7 @@
 import os
 from pathlib import Path
 
-import dj_database_url
+import dj_database_url  # noqa: F401
 import django_heroku
 import rollbar
 from dotenv import load_dotenv
@@ -15,6 +15,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('DJANGO_KEY')
 
 DEBUG = os.getenv('DEBUG', default=False)
+
+HEROKU = os.getenv('HEROKU', default=False)
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
 
@@ -133,8 +135,9 @@ ROLLBAR = {
 
 rollbar.init(**ROLLBAR)
 
-django_heroku.settings(locals())
-locals()['DATABASES']['default'] = dj_database_url.config(
-    conn_max_age=django_heroku.MAX_CONN_AGE,
-    ssl_require=False,
-)
+if HEROKU:
+    django_heroku.settings(locals())
+# locals()['DATABASES']['default'] = dj_database_url.config(  # noqa: E800
+#     conn_max_age=django_heroku.MAX_CONN_AGE,   # noqa: E800
+#     ssl_require=False,   # noqa: E800
+# )   # noqa: E800
