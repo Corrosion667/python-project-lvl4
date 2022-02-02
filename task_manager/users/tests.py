@@ -139,7 +139,9 @@ class UserTestCase(TestCase):
         )
         self.assertEqual(response.status_code, REDIRECT_CODE)
         current_user = get_user(self.client)
-        self.assertTrue(current_user.is_authenticated)
+        self.assertEqual(
+            current_user.pk, User.objects.get(username='test_user1').pk,
+        )
 
     def test_logout_user(self):
         """Test for checking logout feature."""
