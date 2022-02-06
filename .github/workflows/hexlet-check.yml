@@ -18,8 +18,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      LOCALE: ru
     steps:
       - uses: actions/checkout@v2
 
